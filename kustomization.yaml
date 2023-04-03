@@ -87,7 +87,7 @@ patches:
   - target:
       kind: Deployment
       labelSelector: tier in (messenger)
-    path: ./init-containers/wait-for-admin.yaml
+    path: ./init-containers/wait-for-pimcore.yaml
   - patch: |
       - op: add
         path: /spec/template/spec/volumes/-
