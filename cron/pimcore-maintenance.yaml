@@ -1,0 +1,48 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pimcore-maintenance
+  labels:
+    tier: cron
+spec:
+  schedule: 00 2 * * *
+  startingDeadlineSeconds: 200
+  successfulJobsHistoryLimit: 3
+  suspend: false
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          imagePullSecrets:
+            - name: regcred
+          volumes: []
+          initContainers: []
+          containers:
+            - name: php
+              command:
+                - /bin/bash
+              args:
+                - -c
+                - /var/www/bin/console pimcore:maintenance
+              resources:
+                requests:
+                  memory: 256Mi
+                  cpu: 250m
+                limits:
+                  memory: 4096Mi
+                  cpu: 500m
+              image: pimcore
+              imagePullPolicy: Always
+              envFrom:
+                - configMapRef:
+                    name: pimcore-config
+                - secretRef:
+                    name: redis-secrets
+                - secretRef:
+                    name: database-secrets
+                - secretRef:
+                    name: search-secrets
+              volumeMounts: []

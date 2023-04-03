@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.fullname }}
+  labels:
+    {{- toYaml .Values.labels | nindent 8 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  progressDeadlineSeconds: 600
+  selector:
+    matchLabels:
+        {{- toYaml .Values.pimcore.selectorLabels | nindent 8 }}
+  template:
+    metadata:
+      labels:
+        {{- toYaml .Values.pimcore.selectorLabels | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes: []
+      initContainers: []
+      serviceAccountName: {{ .Values.serviceAccount }}
+      containers:
+        {{- if .Values.pimcore.php.enabled }}
+        - name: php
+          {{- if .Values.pimcore.php.securityContext }}
+          securityContext:
+            {{- toYaml .Values.pimcore.php.securityContext | nindent 12 }}
+          {{- else }}
+          securityContext:
+            runAsUser: 33
+            runAsGroup: 33
+          {{- end }}
+          image: {{ .Values.pimcore.php.image.repository }}
+          imagePullPolicy: {{ .Values.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: pimcore-config
+            - secretRef:
+                name: redis-secrets
+            - secretRef:
+                name: database-secrets
+            - secretRef:
+                name: search-secrets
+          volumeMounts: []
+          ports:
+            - name: php-fpm
+              containerPort: 9000
+              protocol: TCP
+          {{- if .Values.pimcore.php.probe }}
+          livenessProbe:
+            tcpSocket:
+              port: php-fpm
+            initialDelaySeconds: 60
+            periodSeconds: 5
+          readinessProbe:
+            tcpSocket:
+              port: php-fpm
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          {{- end }}
+          resources:
+            {{- toYaml .Values.pimcore.php.resources | nindent 12 }}
+          {{- if .Values.pimcore.php.command }}
+          command:
+            {{- toYaml .Values.pimcore.php.command | nindent 12 }}
+          {{- end }}
+          {{- if .Values.pimcore.php.args }}
+          args: 
+            {{- toYaml .Values.pimcore.php.args | nindent 12 }}
+          {{- end }}
+        {{- end }}
+        {{- if .Values.pimcore.nginx.enabled }}
+        - name: nginx
+          image: {{ .Values.pimcore.nginx.image.repository | default "nginx" }}
+          resources:
+            {{- toYaml .Values.pimcore.php.resources | nindent 12 }}
+          imagePullPolicy: {{ .Values.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /_healthz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 60
+          volumeMounts: []
+        {{- end }}

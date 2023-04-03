@@ -1,0 +1,39 @@
+- op: add
+  path: /metadata/labels/scrape-php-fpm
+  value: "true"
+- op: add
+  path: /spec/template/spec/containers/-
+  value:
+    name: fpm-metrics
+    image: "hipages/php-fpm_exporter:1"
+    imagePullPolicy: IfNotPresent
+    ports:
+      - name: fpm-metrics
+        containerPort: 9253
+    readinessProbe:
+      httpGet:
+        path: /metrics
+        port: fpm-metrics
+      periodSeconds: 5
+    livenessProbe:
+      httpGet:
+        path: /metrics
+        port: fpm-metrics
+      periodSeconds: 5
+    startupProbe:
+      failureThreshold: 120
+      periodSeconds: 1
+      httpGet:
+        path: /metrics
+        port: fpm-metrics
+    env:
+      # Enabled to calculate process numbers via php-fpm_exporter since PHP-FPM sporadically reports wrong active/idle/total process numbers.
+      - name: PHP_FPM_FIX_PROCESS_COUNT
+        value: "true"
+    resources:
+      limits:
+        cpu: 40m
+        memory: 32Mi
+      requests:
+        cpu: 40m
+        memory: 32Mi

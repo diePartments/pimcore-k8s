@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: view-deployments-to-pimcore-deployment-control
+subjects:
+  - kind: ServiceAccount
+    name: pimcore-deployment-control
+roleRef:
+  kind: Role
+  name: view-deployments
+  apiGroup: rbac.authorization.k8s.io

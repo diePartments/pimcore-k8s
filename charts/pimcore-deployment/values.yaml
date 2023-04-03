@@ -1,0 +1,45 @@
+fullname: pimcore
+
+labels:
+  tier: backend
+
+autoscaling:
+  enabled: true
+
+replicaCount: 1
+
+pullPolicy: Always
+
+serviceAccount: pimcore-deployment-control
+
+pimcore:
+  selectorLabels:
+    tier: backend
+    app: pimcore
+  php:
+    enabled: true
+    probe: true
+    command: false
+    image:
+      repository: pimcore
+    resources:
+      requests:
+        memory: 128Mi
+        cpu: 25m
+      limits:
+        memory: 1024Mi
+        cpu: 125m
+  nginx:
+    enabled: true
+    image:
+      repository: nginx
+    resources:
+      requests:
+        memory: 64Mi
+        cpu: 25m
+      limits:
+        memory: 128Mi
+        cpu: 250m
+
+imagePullSecrets:
+  - name: regcred

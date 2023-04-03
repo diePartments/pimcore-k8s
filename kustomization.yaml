@@ -1,0 +1,110 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+helmGlobals:
+  chartHome: ./charts
+
+helmCharts:
+  # common cli operations.
+  - releaseName: pimcore-ops
+    name: pimcore-deployment
+    valuesInline:
+      fullname: pimcore-ops
+      labels:
+        tier: ops
+      pimcore:
+        selectorLabels:
+          tier: ops
+          app: pimcore-ops
+        nginx:
+          enabled: false
+        php:
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+          probe: false
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 25m
+            limits:
+              memory: 6144Mi
+              cpu: 500m
+          command:
+            - /bin/bash
+          args:
+            - -c
+            - echo "Starting..." && tail -f /dev/null
+  # pimcore deployment.
+  - releaseName: pimcore
+    name: pimcore-deployment
+    valuesInline:
+      fullname: pimcore
+      pimcore:
+        selectorLabels:
+          tier: backend
+          app: pimcore
+        php:
+          command:
+            - /bin/bash
+          args:
+            - -c
+            - /var/www/bin/console cache:warmup & php-fpm -F
+  # messenger deployments.
+  # - releaseName: messenger-async
+  #   name: pimcore-deployment
+  #   valuesInline:
+  #     labels:
+  #       tier: messenger
+  #     fullname: messenger-async
+  #     pimcore:
+  #       selectorLabels:
+  #         tier: messenger
+  #         app: async
+  #       nginx:
+  #         enabled: false
+  #       php:
+  #         probe: false
+  #         command:
+  #           - /bin/bash
+  #           - -c
+  #           - /var/www/bin/bin/console messenger:consume async -vv
+
+resources:
+  - pimcore/service.yaml
+  - pimcore/ingress.yaml
+  - cron/pimcore-maintenance.yaml
+  - cron/sitemap-generator.yaml
+  - service-account/service-account.yaml
+  - service-account/role.yaml
+  - service-account/role-binding.yaml
+
+configMapGenerator:
+  - name: nginx-conf-d
+    files:
+      - etc/nginx/default.conf
+
+patches:
+  - target:
+      kind: Deployment
+      labelSelector: tier in (messenger)
+    path: ./init-containers/wait-for-admin.yaml
+  - patch: |
+      - op: add
+        path: /spec/template/spec/volumes/-
+        value:
+          name: nginx-conf-d
+          configMap:
+            name: nginx-conf-d
+      - op: add
+        path: /spec/template/spec/containers/1/volumeMounts/-
+        value:
+          name: nginx-conf-d
+          mountPath: /etc/nginx/conf.d
+    target:
+      kind: Deployment
+      labelSelector: tier in (pimcore)
+  # Add php-fpm exporter
+  - path: ./patches/containers/php-fpm-exporter.yaml
+    target:
+      kind: Deployment
+      labelSelector: tier in (pimcore)

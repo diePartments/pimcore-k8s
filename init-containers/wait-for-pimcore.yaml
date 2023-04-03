@@ -1,0 +1,10 @@
+- op: add
+  path: /spec/template/spec/initContainers/-
+  value:
+    name: wait-for-pimcore
+    image: bitnami/kubectl
+    command:
+      - /bin/bash
+    args:
+      - -c
+      - kubectl rollout status deployment/pimcore -n ${NAMESPACE}

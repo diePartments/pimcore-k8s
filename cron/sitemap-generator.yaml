@@ -1,0 +1,48 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sitemap-generator
+  labels:
+    tier: cron
+spec:
+  schedule: 0 0 * * 5
+  startingDeadlineSeconds: 600
+  successfulJobsHistoryLimit: 3
+  suspend: false
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes: []
+          restartPolicy: OnFailure
+          imagePullSecrets:
+            - name: regcred
+          initContainers: []
+          containers:
+            - name: php
+              command:
+                - /bin/bash
+              args:
+                - -c
+                - /var/www/bin/console presta:sitemaps:dump /var/www/public/var
+              resources:
+                requests:
+                  memory: 256Mi
+                  cpu: 250m
+                limits:
+                  memory: 4096Mi
+                  cpu: 750m
+              volumeMounts: []
+              image: pimcore
+              imagePullPolicy: Always
+              envFrom:
+                - configMapRef:
+                    name: pimcore-config
+                - secretRef:
+                    name: redis-secrets
+                - secretRef:
+                    name: database-secrets
+                - secretRef:
+                    name: search-secrets
