@@ -8,3 +8,4 @@
     args:
       - -c
       - kubectl rollout status deployment/pimcore -n ${NAMESPACE}
+      - for deployment in $(kubectl get deployments --selector=app=pimcore,primary=true -o name); do kubectl rollout status $deployment; done

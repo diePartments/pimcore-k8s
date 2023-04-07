@@ -37,15 +37,6 @@ spec:
           {{- end }}
           image: {{ .Values.pimcore.php.image.repository }}
           imagePullPolicy: {{ .Values.pullPolicy }}
-          envFrom:
-            - configMapRef:
-                name: pimcore-config
-            - secretRef:
-                name: redis-secrets
-            - secretRef:
-                name: database-secrets
-            - secretRef:
-                name: search-secrets
           volumeMounts: []
           ports:
             - name: php-fpm

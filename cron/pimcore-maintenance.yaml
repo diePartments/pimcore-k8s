@@ -3,7 +3,10 @@ kind: CronJob
 metadata:
   name: pimcore-maintenance
   labels:
-    tier: pimcore-cron
+    role: mainteance
+    tier: cron
+    app: pimcore
+    lang: php
 spec:
   schedule: 00 2 * * *
   startingDeadlineSeconds: 200
@@ -16,8 +19,6 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
-          imagePullSecrets:
-            - name: regcred
           volumes: []
           initContainers: []
           containers:
@@ -36,13 +37,4 @@ spec:
                   cpu: 500m
               image: pimcore
               imagePullPolicy: Always
-              envFrom:
-                - configMapRef:
-                    name: pimcore-config
-                - secretRef:
-                    name: redis-secrets
-                - secretRef:
-                    name: database-secrets
-                - secretRef:
-                    name: search-secrets
               volumeMounts: []

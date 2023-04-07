@@ -1,0 +1,13 @@
+# Attach nginx-conf-d as a volume
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: nginx-conf-d
+    configMap:
+      name: nginx-conf-d
+# Mount  nginx-conf-d
+- op: add
+  path: /spec/template/spec/containers/1/volumeMounts/-
+  value:
+    name: nginx-conf-d
+    mountPath: /etc/nginx-conf-d/conf.d

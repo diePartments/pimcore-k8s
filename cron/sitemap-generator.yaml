@@ -3,7 +3,10 @@ kind: CronJob
 metadata:
   name: sitemap-generator
   labels:
-    tier: pimcore-cron
+    app: pimcore
+    role: static-generator
+    tier: cron
+    lang: php
 spec:
   schedule: 0 0 * * 5
   startingDeadlineSeconds: 600
@@ -17,8 +20,6 @@ spec:
         spec:
           volumes: []
           restartPolicy: OnFailure
-          imagePullSecrets:
-            - name: regcred
           initContainers: []
           containers:
             - name: php
@@ -37,12 +38,3 @@ spec:
               volumeMounts: []
               image: pimcore
               imagePullPolicy: Always
-              envFrom:
-                - configMapRef:
-                    name: pimcore-config
-                - secretRef:
-                    name: redis-secrets
-                - secretRef:
-                    name: database-secrets
-                - secretRef:
-                    name: search-secrets

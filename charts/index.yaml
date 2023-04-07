@@ -3,13 +3,13 @@ entries:
   pimcore-deployment:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2023-04-07T01:19:32.713736528-07:00"
+    created: "2023-04-07T04:26:26.828891794-07:00"
     description: A Helm chart to deploy pimcore to kubernetes. (To be used as a base
       with Kustomize)
-    digest: 16d3b3984b0dad9487c28405c982639e6f269350582d91a01a05fef515595012
+    digest: 43f8d039a1e7cbb21c4f76817332d77495d45c81ea9222a47ee64fd4dc32bf75
     name: pimcore-deployment
     type: application
     urls:
     - pimcore-deployment-0.1.0.tgz
     version: 0.1.0
-generated: "2023-04-07T01:19:32.713255179-07:00"
+generated: "2023-04-07T04:26:26.828548318-07:00"

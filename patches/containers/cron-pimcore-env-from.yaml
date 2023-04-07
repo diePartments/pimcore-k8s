@@ -1,0 +1,11 @@
+- op: add
+  path: /spec/jobTemplate/spec/template/spec/containers/0/envFrom
+  value:
+    - configMapRef:
+        name: pimcore-config
+    - secretRef:
+        name: redis-secrets
+    - secretRef:
+        name: database-secrets
+    - secretRef:
+        name: search-secrets

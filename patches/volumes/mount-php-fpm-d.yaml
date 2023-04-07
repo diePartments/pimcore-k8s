@@ -1,0 +1,12 @@
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    configMap:
+      name: php-fpm-d
+    name: php-fpm-d
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: php-fpm-d
+    mountPath: /usr/local/etc/php-fpm.d/zz-www-pimcore.conf
+    subPath: pimcore.conf

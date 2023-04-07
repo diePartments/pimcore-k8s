@@ -1,0 +1,21 @@
+# Attach php-conf-d as a volume
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: php-conf-d
+    configMap:
+      name: php-conf-d
+# Mount opcache.ini file
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: php-conf-d
+    mountPath: /usr/local/etc/php/conf.d/99-opcache.ini
+    subPath: opcache.ini
+# Mount opcache.ini file
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: php-conf-d
+    mountPath: /usr/local/etc/php/conf.d/99-config.ini
+    subPath: pimcore.ini
