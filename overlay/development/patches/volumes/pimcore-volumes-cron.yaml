@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/jobTemplate/spec/template/spec/volumes/-
+  value:
+    name: code
+    hostPath:
+      path: ${PROJECT_HOST_PATH}/apps/pimcore
+      type: Directory

@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# patches:
+#   # Attach copy public init container
+#   - path: ./patches/init-containers/copy-public.yaml
+#     target:
+#       kind: Deployment
+#       labelSelector: app=pimcore,role=web
+
+#   # Attach create assets init container
+#   - path: ./patches/init-containers/create-assets.yaml
+#     target:
+#       kind: Deployment
+#       labelSelector: app=pimcore,role=web
+
+#   # Attach db-migrations init container
+#   - path: ./patches/init-containers/db-migrations.yaml
+#     target:
+#       kind: Deployment
+#       labelSelector: app=pimcore,primary=true
+
+#   # Chown for www-data
+#   - path: ./patches/init-containers/chown-www-data.yaml
+#     target:
+#       kind: Deployment
+#       labelSelector: app=pimcore,role in (web,async-worker)

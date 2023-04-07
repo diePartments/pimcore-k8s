@@ -1,0 +1,6 @@
+# /var/www/var/cache
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    mountPath: /var/www/var/cache
+    name: cache

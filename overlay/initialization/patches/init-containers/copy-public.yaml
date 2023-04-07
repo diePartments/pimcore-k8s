@@ -1,0 +1,13 @@
+- op: add
+  path: /spec/template/spec/initContainers/-
+  value:
+    name: copy-public
+    image: pimcore
+    command:
+      - /bin/bash
+    args:
+      - -c
+      -  apt update && apt install rsync && rsync -rogv --ignore-errors --delete /var/www/public/ /srv/
+    volumeMounts:
+      - mountPath: /srv
+        name: public

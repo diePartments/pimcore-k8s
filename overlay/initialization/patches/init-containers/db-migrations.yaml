@@ -1,0 +1,18 @@
+- op: add
+  path: /spec/template/spec/initContainers/-
+  value:
+    name: db-migrations
+    image: pimcore
+    envFrom:
+      - configMapRef:
+          name: pimcore-config
+      - secretRef:
+          name: redis-secrets
+      - secretRef:
+          name: database-secrets
+    command:
+      - /bin/bash
+    args:
+      - -c
+      - /var/www/db_migrations.sh ${APP_ENV}
+    volumeMounts: []

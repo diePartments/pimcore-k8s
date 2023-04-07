@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+# patches:
+#   # Attach pimcore volumes
+#   - path: patches/volumes/pimcore-volumes.yaml
+#     target:
+#       kind: Deployment
+#       labelSelector: app=pimcore
+#   # Mount pimcore volumes to php container
+#   - path: patches/volumes/mount-pimcore-volumes.yaml
+#     target:
+#       kind: Deployment
+#       labelSelector: app=pimcore
+#   # Mount pimcore volumes to nginx container
+#   - path: patches/volumes/mount-pimcore-volumes-nginx.yaml
+#     target:
+#       kind: Deployment
+#       labelSelector: app=pimcore,role=web
+#   # Attach pimcore volumes to cron jobs
+#   - path: patches/volumes/pimcore-volumes-cron.yaml
+#     target:
+#       kind: CronJob
+#       labelSelector: app=pimcore
+#   # Mount pimcore volumes to cron jobs
+#   - path: patches/volumes/mount-pimcore-volumes-cron.yaml
+#     target:
+#       kind: CronJob
+#       labelSelector: app=pimcore

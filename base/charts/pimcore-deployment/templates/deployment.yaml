@@ -17,10 +17,6 @@ spec:
       labels:
         {{- toYaml .Values.pimcore.selectorLabels | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       volumes: []
       initContainers: []
       serviceAccountName: {{ .Values.serviceAccount }}
@@ -32,8 +28,8 @@ spec:
             {{- toYaml .Values.pimcore.php.securityContext | nindent 12 }}
           {{- else }}
           securityContext:
-            runAsUser: 33
-            runAsGroup: 33
+            runAsUser:  33
+            runAsGroup:  33
           {{- end }}
           image: {{ .Values.pimcore.php.image.repository }}
           imagePullPolicy: {{ .Values.pullPolicy }}

@@ -1,0 +1,17 @@
+- op: add
+  path: /spec/jobTemplate/spec/template/spec/volumes/-
+  value:
+    name: public
+    emptyDir: {}
+- op: add
+  path: /spec/jobTemplate/spec/template/spec/volumes/-
+  value:
+    name: public-var
+    persistentVolumeClaim:
+      claimName: pimcore-public-var
+- op: add
+  path: /spec/jobTemplate/spec/template/spec/volumes/-
+  value:
+    name: pimcore-tmp-folder
+    persistentVolumeClaim:
+      claimName: tmp-folder

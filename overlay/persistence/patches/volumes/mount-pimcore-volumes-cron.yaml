@@ -1,0 +1,10 @@
+- op: add
+  path: /spec/jobTemplate/spec/template/spec/containers/0/volumeMounts/-
+  value:
+    mountPath: /var/www/var/tmp
+    name: pimcore-tmp-folder
+- op: add
+  path: /spec/jobTemplate/spec/template/spec/containers/0/volumeMounts/-
+  value:
+    mountPath: /var/www/public/var
+    name: public-var

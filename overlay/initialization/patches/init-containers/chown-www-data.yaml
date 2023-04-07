@@ -1,0 +1,22 @@
+- op: add
+  path: /spec/template/spec/initContainers/-
+  value:
+    name: chown-www-data
+    image: pimcore
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsUser: 0
+    command:
+      - /bin/bash
+    args:
+      - -c
+      - chown -R -c www-data:www-data /var/www/var /var/www/public/var 
+    volumeMounts:
+      - mountPath: /var/www/public
+        name: public
+      - mountPath: /var/www/public/var
+        name: public-var
+      - mountPath: /var/www/cache
+        name: cache
+      - mountPath: /var/www/var/tmp
+        name: pimcore-tmp-folder

@@ -27,7 +27,7 @@ pimcore:
         memory: 128Mi
         cpu: 25m
       limits:
-        memory: 1024Mi
+        memory: 4096Mi
         cpu: 125m
   nginx:
     enabled: true
@@ -38,8 +38,5 @@ pimcore:
         memory: 64Mi
         cpu: 25m
       limits:
-        memory: 128Mi
-        cpu: 250m
-
-imagePullSecrets:
-  - name: regcred
+        memory: 1024Mi
+        cpu: 124m
