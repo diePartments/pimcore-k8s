@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: sitemap-generator
   labels:
-    tier: cron
+    tier: pimcore-cron
 spec:
   schedule: 0 0 * * 5
   startingDeadlineSeconds: 600

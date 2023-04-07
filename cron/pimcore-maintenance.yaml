@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: pimcore-maintenance
   labels:
-    tier: cron
+    tier: pimcore-cron
 spec:
   schedule: 00 2 * * *
   startingDeadlineSeconds: 200

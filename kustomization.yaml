@@ -41,7 +41,7 @@ helmCharts:
       fullname: pimcore
       pimcore:
         selectorLabels:
-          tier: backend
+          tier: pimcore
           app: pimcore
         php:
           command:

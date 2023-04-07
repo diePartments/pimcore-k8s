@@ -12,13 +12,13 @@ metadata:
     nginx.org/client-max-body-size: "500m"
   name: pimcore
   labels:
-    tier: backend
+    tier: pimcore
 spec:
   rules:
     - host: ${DOMAIN}
       http:
         paths:
-          - backend:
+          - pimcore:
               service:
                 name: pimcore
                 port:

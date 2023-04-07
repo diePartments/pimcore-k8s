@@ -1,7 +1,7 @@
 fullname: pimcore
 
 labels:
-  tier: backend
+  tier: pimcore
 
 autoscaling:
   enabled: true
@@ -14,7 +14,7 @@ serviceAccount: pimcore-deployment-control
 
 pimcore:
   selectorLabels:
-    tier: backend
+    tier: pimcore
     app: pimcore
   php:
     enabled: true
