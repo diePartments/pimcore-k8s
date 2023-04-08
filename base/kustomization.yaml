@@ -106,55 +106,55 @@ configMapGenerator:
     files:
       - ./etc/nginx-conf-d/default.conf
 
-  # patches:
-  # # Attach mandatory envs from configmaps and secrets
-  # - target:
-  #     kind: Deployment
-  #     labelSelector: app=pimcore
-  #   path: ./patches/containers/pimcore-env-from.yaml
-  # - target:
-  #     kind: CronJob
-  #     labelSelector: app=pimcore
-  #   path: ./patches/containers/cron-pimcore-env-from.yaml
+patches:
+  # Attach mandatory envs from configmaps and secrets
+  - target:
+      kind: Deployment
+      labelSelector: app=pimcore
+    path: ./patches/containers/pimcore-env-from.yaml
+  - target:
+      kind: CronJob
+      labelSelector: app=pimcore
+    path: ./patches/containers/cron-pimcore-env-from.yaml
 
-  # # Attach regred to all deployments and cronjobs
-  # - target:
-  #     kind: Deployment
-  #   path: ./patches/deployment-pull-secret.yaml
-  # - target:
-  #     kind: CronJob
-  #   path: ./patches/cronjob-pull-secret.yaml
+  # Attach regred to all deployments and cronjobs
+  - target:
+      kind: Deployment
+    path: ./patches/deployment-pull-secret.yaml
+  - target:
+      kind: CronJob
+    path: ./patches/cronjob-pull-secret.yaml
 
-  # # Wait for pimcore backend deployments
-  # - target:
-  #     kind: Deployment
-  #     labelSelector: tier!=ops,app=pimcore,primary!=true,!primary
-  #   path: ./patches/init-containers/wait-for-pimcore.yaml
+  # Wait for pimcore backend deployments
+  - target:
+      kind: Deployment
+      labelSelector: tier!=ops,app=pimcore,primary!=true,!primary
+    path: ./patches/init-containers/wait-for-pimcore.yaml
 
-  # # Attach php-conf-d
-  # - target:
-  #     kind: Deployment
-  #     labelSelector: app=pimcore,lang=php
-  #   path: ./patches/volumes/mount-php-conf-d.yaml
-  # - target:
-  #     kind: CronJob
-  #     labelSelector: app=pimcore,lang=php
-  #   path: ./patches/volumes/cron-mount-php-conf-d.yaml
+  # Attach php-conf-d
+  - target:
+      kind: Deployment
+      labelSelector: app=pimcore,lang=php
+    path: ./patches/volumes/mount-php-conf-d.yaml
+  - target:
+      kind: CronJob
+      labelSelector: app=pimcore,lang=php
+    path: ./patches/volumes/cron-mount-php-conf-d.yaml
 
-  # # Attach php-fpm-d
-  # - target:
-  #     kind: Deployment
-  #     labelSelector: app=pimcore,role=web,lang=php
-  #   path: ./patches/volumes/mount-php-fpm-d.yaml
+  # Attach php-fpm-d
+  - target:
+      kind: Deployment
+      labelSelector: app=pimcore,role=web,lang=php
+    path: ./patches/volumes/mount-php-fpm-d.yaml
 
-  # # Attach nginx-conf-d
-  # - target:
-  #     kind: Deployment
-  #     labelSelector: role=web,app=pimcore
-  #   path: ./patches/volumes/mount-nginx-conf-d.yaml
+  # Attach nginx-conf-d
+  - target:
+      kind: Deployment
+      labelSelector: role=web,app=pimcore
+    path: ./patches/volumes/mount-nginx-conf-d.yaml
 
-  # # Add php-fpm exporter
-  # - target:
-  #     kind: Deployment
-  #     labelSelector: role=web,lang=php
-  #   path: ./patches/containers/php-fpm-exporter.yaml
+  # Add php-fpm exporter
+  - target:
+      kind: Deployment
+      labelSelector: role=web,lang=php
+    path: ./patches/containers/php-fpm-exporter.yaml
