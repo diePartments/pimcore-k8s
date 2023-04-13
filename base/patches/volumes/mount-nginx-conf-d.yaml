@@ -10,4 +10,4 @@
   path: /spec/template/spec/containers/1/volumeMounts/-
   value:
     name: nginx-conf-d
-    mountPath: /etc/nginx-conf-d/conf.d
+    mountPath: /etc/nginx/conf.d
