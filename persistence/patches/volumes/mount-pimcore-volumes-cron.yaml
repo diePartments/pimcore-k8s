@@ -8,3 +8,8 @@
   value:
     mountPath: /var/www/public/var
     name: public-var
+- op: add
+  path: /spec/jobTemplate/spec/template/spec/containers/0/volumeMounts/-
+  value:
+    mountPath: /var/www/var/application-logger
+    name: application-logger

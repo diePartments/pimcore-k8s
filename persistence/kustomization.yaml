@@ -5,39 +5,40 @@ resources:
   - pvc/pimcore-public-var.yaml
   - pvc/tmp-folder.yaml
   - pvc/pimcore-var.yaml
+  - pvc/application-logger.yaml
 
-patches:
-  # # Attach pimcore volumes to deployments
-  # - path: ./patches/volumes/pimcore-volumes.yaml
-  #   target:
-  #     kind: Deployment
-  #     labelSelector: app=pimcore
-  # - path: ./patches/volumes/pimcore-volumes-cron.yaml
-  #   target:
-  #     kind: CronJob
-  #     labelSelector: app=pimcore
-  # # Mount pimcore volumes.
-  # - path: ./patches/volumes/mount-pimcore-volumes.yaml
-  #   target:
-  #     kind: Deployment
-  #     labelSelector: app=pimcore
-  # - path: ./patches/volumes/mount-pimcore-volumes-cron.yaml
-  #   target:
-  #     kind: Cron
-  #     labelSelector: app=pimcore
-  # # Mount Pimcore volumes to nginx containers
-  # - path: ./patches/volumes/mount-pimcore-volumes-nginx.yaml
-  #   target:
-  #     kind: Deployment
-  #     labelSelector: app=pimcore,role=web
+# patches:
+#   # Attach pimcore volumes to deployments
+#   - path: ./patches/volumes/pimcore-volumes.yaml
+#     target:
+#       kind: Deployment
+#       labelSelector: app=pimcore
+#   - path: ./patches/volumes/pimcore-volumes-cron.yaml
+#     target:
+#       kind: CronJob
+#       labelSelector: app=pimcore
+#   # Mount pimcore volumes.
+#   - path: ./patches/volumes/mount-pimcore-volumes.yaml
+#     target:
+#       kind: Deployment
+#       labelSelector: app=pimcore
+#   - path: ./patches/volumes/mount-pimcore-volumes-cron.yaml
+#     target:
+#       kind: Cron
+#       labelSelector: app=pimcore
+#   # Mount Pimcore volumes to nginx containers
+#   - path: ./patches/volumes/mount-pimcore-volumes-nginx.yaml
+#     target:
+#       kind: Deployment
+#       labelSelector: app=pimcore,role=web
 
-  # # Attach symfony cache volume
-  # - path: ./patches/volumes/pimcore-cache.yaml
-  #   target:
-  #     kind: Deployment
-  #     labelSelector: app=pimcore
-  # # Mount symfony cache
-  # - path: ./patches/volumes/mount-pimcore-cache.yaml
-  #   target:
-  #     kind: Deployment
-  #     labelSelector: app=pimcore
+#   # Attach symfony cache volume
+#   - path: ./patches/volumes/pimcore-cache.yaml
+#     target:
+#       kind: Deployment
+#       labelSelector: app=pimcore
+#   # Mount symfony cache
+#   - path: ./patches/volumes/mount-pimcore-cache.yaml
+#     target:
+#       kind: Deployment
+#       labelSelector: app=pimcore

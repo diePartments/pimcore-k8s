@@ -15,3 +15,9 @@
     name: pimcore-tmp-folder
     persistentVolumeClaim:
       claimName: tmp-folder
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: application-logger
+    persistentVolumeClaim:
+      claimName: application-logger

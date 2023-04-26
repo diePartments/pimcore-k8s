@@ -16,3 +16,9 @@
   value:
     mountPath: /var/www/public/var
     name: public-var
+# /var/www/var/application-logger
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    mountPath: /var/www/var/application-logger
+    name: application-logger
