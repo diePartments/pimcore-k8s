@@ -28,7 +28,7 @@ pimcore:
         cpu: 25m
       limits:
         memory: 4096Mi
-        cpu: 125m
+        cpu: 500m
   nginx:
     enabled: true
     image:
@@ -39,4 +39,4 @@ pimcore:
         cpu: 25m
       limits:
         memory: 1024Mi
-        cpu: 124m
+        cpu: 500m
