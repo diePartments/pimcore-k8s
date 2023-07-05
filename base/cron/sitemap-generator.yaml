@@ -36,5 +36,7 @@ spec:
                   memory: 4096Mi
                   cpu: 750m
               volumeMounts: []
+              env: []
+              envFrom: []
               image: pimcore
               imagePullPolicy: Always

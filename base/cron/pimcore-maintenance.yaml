@@ -38,3 +38,5 @@ spec:
               image: pimcore
               imagePullPolicy: Always
               volumeMounts: []
+              env: []
+              envFrom: []
