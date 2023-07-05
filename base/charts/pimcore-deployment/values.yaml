@@ -24,8 +24,8 @@ pimcore:
       repository: pimcore
     resources:
       requests:
-        memory: 128Mi
-        cpu: 25m
+        memory: 256Mi
+        cpu: 250m
       limits:
         memory: 4096Mi
         cpu: 500m
@@ -36,7 +36,7 @@ pimcore:
     resources:
       requests:
         memory: 64Mi
-        cpu: 25m
+        cpu: 125m
       limits:
         memory: 1024Mi
         cpu: 500m
