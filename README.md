@@ -125,6 +125,18 @@ patches:
       kind: Deployment
       labelSelector: app=pimcore,role=web,primary=true
 
+  # Attach deploy-layouts init container
+  - path: https://raw.githubusercontent.com/diePartments/pimcore-k8s/main/initialization/patches/init-containers/deploy-layouts.yaml
+    target:
+      kind: Deployment
+      labelSelector: app=pimcore,primary=true
+
+  # Attach create-classes init container
+  - path: https://raw.githubusercontent.com/diePartments/pimcore-k8s/main/initialization/patches/init-containers/create-classes.yaml
+    target:
+      kind: Deployment
+      labelSelector: app=pimcore,primary=true
+
   # Attach db-migrations init container
   - path: https://raw.githubusercontent.com/diePartments/pimcore-k8s/main/initialization/patches/init-containers/db-migrations.yaml
     target:
