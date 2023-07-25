@@ -27,7 +27,7 @@ spec:
                 - /bin/bash
               args:
                 - -c
-                - /var/www/bin/console pimcore:maintenance
+                - /var/www/bin/console pimcore:maintenance -a
               resources:
                 requests:
                   memory: 256Mi
