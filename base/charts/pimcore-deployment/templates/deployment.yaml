@@ -65,7 +65,7 @@ spec:
         - name: nginx
           image: {{ .Values.pimcore.nginx.image.repository | default "nginx" }}
           resources:
-            {{- toYaml .Values.pimcore.php.resources | nindent 12 }}
+            {{- toYaml .Values.pimcore.nginx.resources | nindent 12 }}
           imagePullPolicy: {{ .Values.pullPolicy }}
           ports:
             - name: http
