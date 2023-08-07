@@ -24,11 +24,11 @@ pimcore:
       repository: pimcore
     resources:
       requests:
-        memory: 256Mi
+        memory: 1.25Gi
         cpu: 250m
       limits:
-        memory: 4096Mi
-        cpu: 500m
+        memory: 4Gi
+        cpu: 2
   nginx:
     enabled: true
     image:
@@ -38,5 +38,5 @@ pimcore:
         memory: 64Mi
         cpu: 125m
       limits:
-        memory: 1024Mi
+        memory: 4024Mi
         cpu: 500m

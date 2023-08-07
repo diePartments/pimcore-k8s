@@ -3,3 +3,8 @@
   value:
     mountPath: /var/www/public
     name: public
+- op: add
+  path: /spec/template/spec/containers/1/volumeMounts/-
+  value:
+    mountPath: /var/www/public/var
+    name: public-var

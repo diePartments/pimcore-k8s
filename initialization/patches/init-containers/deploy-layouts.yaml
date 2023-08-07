@@ -1,0 +1,23 @@
+- op: add
+  path: /spec/template/spec/initContainers/-
+  value:
+    name: deploy-layouts
+    image: pimcore
+    envFrom:
+      - configMapRef:
+          name: pimcore-config
+      - secretRef:
+          name: redis-secrets
+      - secretRef:
+          name: database-secrets
+    command:
+      - /var/www/bin/console
+    args:
+      - pimcore:deployment:custom-layouts-rebuild
+      - -c
+      - -n
+    volumeMounts:
+      - mountPath: /var/www/public
+        name: public
+      - mountPath: /var/www/public/var
+        name: public-var
