@@ -39,10 +39,10 @@ helmCharts:
         lang: php
       pimcore:
         selectorLabels:
-        tier: ops
-        role: console
-        app: pimcore
-        lang: php
+          tier: ops
+          role: console
+          app: pimcore
+          lang: php
         nginx:
           enabled: false
         php:
@@ -105,7 +105,6 @@ configMapGenerator:
   - name: nginx-conf-d
     files:
       - ./etc/nginx-conf-d/default.conf
-
 # patches:
 #   # Attach mandatory envs from configmaps and secrets
 #   - target:
