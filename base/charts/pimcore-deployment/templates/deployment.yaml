@@ -52,7 +52,7 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.pimcore.php.resources | nindent 12 }}
-          {{- if .Values.pimcore.php.command }}
+          {{- if and .Values.pimcore.php.command (gt (len .Values.pimcore.php.command) 0) }}
           command:
             {{- toYaml .Values.pimcore.php.command | nindent 12 }}
           {{- end }}

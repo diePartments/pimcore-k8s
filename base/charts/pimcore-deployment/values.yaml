@@ -19,7 +19,7 @@ pimcore:
   php:
     enabled: true
     probe: true
-    command: false
+    command: []
     image:
       repository: pimcore
     resources:
