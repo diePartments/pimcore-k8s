@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - pvc/pimcore-public-var.yaml
   - pvc/tmp-folder.yaml
-  - pvc/pimcore-var.yaml
   - pvc/application-logger.yaml
 
 # patches:
